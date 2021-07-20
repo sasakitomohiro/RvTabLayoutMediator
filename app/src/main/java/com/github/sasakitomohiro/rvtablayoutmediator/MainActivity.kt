@@ -24,7 +24,11 @@ class MainActivity : AppCompatActivity() {
         2L,
         3L,
         4L,
-        5L
+        5L,
+        6L,
+        7L,
+        8L,
+        9L
     )
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,30 +48,40 @@ class MainActivity : AppCompatActivity() {
 
 class SampleAdapter : GroupAdapter<GroupieViewHolder>(), TabDataProvider {
     private val sampleItems = mutableListOf<Section>()
+    private val tabData = mutableListOf<TabData>()
+    private val itemPositions = mutableListOf<Long>()
 
     fun update(items: List<Long>) {
         sampleItems.clear()
-        sampleItems.addAll(
-            items.map {
+        tabData.clear()
+        itemPositions.clear()
+
+        items.forEach { sectionId ->
+            sampleItems.add(
                 Section().apply {
-                    setHeader(
-                        SampleHeaderItem(it, it.toString())
-                    )
-                    this.add(
-                        SampleItem("item")
-                    )
+                    val header = SampleHeaderItem(sectionId, sectionId.toString())
+                    setHeader(header)
+                    tabData.add(TabData(header.id, header.title))
+                    itemPositions.add(header.id)
+                    val sampleItem = SampleItem("item")
+                    add(sampleItem)
+                    itemPositions.add(sampleItem.id)
                 }
-            }
-        )
+            )
+        }
         update(sampleItems)
     }
 
-    override fun getTabData(): List<TabData> = listOf()
+
+
+    override fun getTabData(): List<TabData> = tabData
+
+    override fun getRecyclerViewPositions(): List<Long> = itemPositions
 }
 
 class SampleHeaderItem(
     id: Long,
-    private val title: String
+    val title: String
 ) : BindableItem<ItemSampleHeaderBinding>(id) {
     override fun getLayout(): Int = R.layout.item_sample_header
 
@@ -79,7 +93,7 @@ class SampleHeaderItem(
 }
 
 class SampleItem(
-    private val title: String
+    val title: String
 ) : BindableItem<ItemSampleBinding>() {
     override fun getLayout(): Int = R.layout.item_sample
 

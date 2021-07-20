@@ -62,7 +62,7 @@ class RvTabLayoutMediator(
                     override fun onTabSelected(tab: TabLayout.Tab?) {
                         tab ?: return
                         val id = findItemIdByTabIndex(tab.position)
-                        val position = recyclerView.findViewHolderForItemId(id).adapterPosition
+                        val position = findItemPositionByItemId(id)
 //                        recyclerView.findViewHolderForItemId()
 //                        recyclerView.adapter!!.
                         targetPosition = position
@@ -78,5 +78,8 @@ class RvTabLayoutMediator(
     }
 
     private fun findTabIndexByItemId(id: Long) = tabDataProvider.getTabData().indexOfFirst { it.id == id }
+
     private fun findItemIdByTabIndex(index: Int) = tabDataProvider.getTabData().get(index).id
+
+    private fun findItemPositionByItemId(id: Long) = tabDataProvider.getRecyclerViewPositions().indexOfFirst { it == id }
 }
