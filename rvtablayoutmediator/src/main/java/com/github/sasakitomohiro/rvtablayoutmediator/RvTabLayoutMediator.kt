@@ -3,7 +3,6 @@ package com.github.sasakitomohiro.rvtablayoutmediator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayoutMediator
 
 class RvTabLayoutMediator(
     private val tabLayout: TabLayout,
@@ -35,12 +34,9 @@ class RvTabLayoutMediator(
                     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
                         val currentFirstVisiblePosition =
                             this@RvTabLayoutMediator.layoutManager.findFirstVisibleItemPosition()
-                        if (targetPosition != -1 && targetPosition != currentFirstVisiblePosition && currentScrollState != RecyclerView.SCROLL_STATE_IDLE) return else targetPosition = -1
+                        if (targetPosition != -1 && targetPosition != currentFirstVisiblePosition && currentScrollState != RecyclerView.SCROLL_STATE_IDLE) return else targetPosition =
+                            -1
                         val id = adapter!!.getItemId(currentFirstVisiblePosition)
-//                        if (id in targetItemIds) {
-////                            val tab = tabLayout.id
-////                            tabLayout.getTabAt()
-//                        }
                         val index = findTabIndexByItemId(id)
                         val tab = tabLayout.getTabAt(index)
                         tabLayout.selectTab(tab)
@@ -65,8 +61,6 @@ class RvTabLayoutMediator(
                         tab ?: return
                         val id = findItemIdByTabIndex(tab.position)
                         val position = findItemPositionByItemId(id)
-//                        recyclerView.findViewHolderForItemId()
-//                        recyclerView.adapter!!.
                         targetPosition = position
                         smoothScroller.targetPosition = targetPosition
                         layoutManager.startSmoothScroll(smoothScroller)
@@ -79,9 +73,11 @@ class RvTabLayoutMediator(
         }
     }
 
-    private fun findTabIndexByItemId(id: Long) = tabDataProvider.getTabData().indexOfFirst { it.id == id }
+    private fun findTabIndexByItemId(id: Long) =
+        tabDataProvider.getTabData().indexOfFirst { it.id == id }
 
     private fun findItemIdByTabIndex(index: Int) = tabDataProvider.getTabData().get(index).id
 
-    private fun findItemPositionByItemId(id: Long) = tabDataProvider.getRecyclerViewPositions().indexOfFirst { it == id }
+    private fun findItemPositionByItemId(id: Long) =
+        tabDataProvider.getRecyclerViewPositions().indexOfFirst { it == id }
 }
