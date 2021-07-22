@@ -3,11 +3,13 @@ package com.github.sasakitomohiro.rvtablayoutmediator
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.tabs.TabLayout
+import com.google.android.material.tabs.TabLayoutMediator
 
 class RvTabLayoutMediator(
     private val tabLayout: TabLayout,
     private val recyclerView: RecyclerView,
-    private val tabDataProvider: TabDataProvider
+    private val tabDataProvider: TabDataProvider,
+    private val tabConfigurationStrategy: RvTabConfigurationStrategy
 ) {
     private var targetPosition = -1
     private var isManualScroll = false
@@ -47,10 +49,10 @@ class RvTabLayoutMediator(
             )
         }
         with(tabLayout) {
-            tabDataProvider.getTabData().forEach { data ->
+            tabDataProvider.getTabData().forEachIndexed { index, data ->
                 addTab(
                     newTab().apply {
-                        text = data.title
+                        tabConfigurationStrategy.onConfigureTab(this, index)
                     }
                 )
             }

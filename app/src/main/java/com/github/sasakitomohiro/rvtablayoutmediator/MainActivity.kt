@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.sasakitomohiro.rvtablayoutmediator.databinding.ActivityMainBinding
 import com.github.sasakitomohiro.rvtablayoutmediator.databinding.ItemSampleBinding
 import com.github.sasakitomohiro.rvtablayoutmediator.databinding.ItemSampleHeaderBinding
+import com.google.android.material.tabs.TabLayout
 import com.xwray.groupie.GroupAdapter
 import com.xwray.groupie.GroupieViewHolder
 import com.xwray.groupie.Section
@@ -41,7 +42,12 @@ class MainActivity : AppCompatActivity() {
         RvTabLayoutMediator(
             binding.tab,
             binding.recycler,
-            sampleAdapter
+            sampleAdapter,
+            object : RvTabConfigurationStrategy {
+                override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
+                    tab.text = items[position].toString()
+                }
+            }
         )
     }
 }
@@ -71,7 +77,6 @@ class SampleAdapter : GroupAdapter<GroupieViewHolder>(), TabDataProvider {
         }
         update(sampleItems)
     }
-
 
 
     override fun getTabData(): List<TabData> = tabData
