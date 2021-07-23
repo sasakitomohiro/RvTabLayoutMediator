@@ -78,6 +78,7 @@ class RvTabLayoutMediator(
     fun detach() {
         if (!attached) return
         recyclerView.removeOnScrollListener(onScrollListener)
+        tabLayout.removeAllTabs()
         tabLayout.removeOnTabSelectedListener(onTabSelectedListener)
         attached = false
     }
