@@ -28,6 +28,7 @@ class RvTabLayoutMediator(
         override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
             prevScrollState = currentScrollState
             currentScrollState = newState
+            isManualScroll = newState != RecyclerView.SCROLL_STATE_IDLE
         }
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
@@ -48,6 +49,7 @@ class RvTabLayoutMediator(
 
         override fun onTabSelected(tab: TabLayout.Tab?) {
             tab ?: return
+            if (isManualScroll) return
             val id = findItemIdByTabIndex(tab.position)
             val position = findItemPositionByItemId(id)
             targetPosition = position
