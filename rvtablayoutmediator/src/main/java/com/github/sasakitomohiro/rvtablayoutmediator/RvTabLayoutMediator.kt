@@ -31,13 +31,18 @@ class RvTabLayoutMediator(
             prevScrollState = currentScrollState
             currentScrollState = newState
             isManualScroll = newState != RecyclerView.SCROLL_STATE_IDLE
+            if (currentScrollState == RecyclerView.SCROLL_STATE_IDLE && targetPosition != NO_TARGET_POSITION) {
+                targetPosition = NO_TARGET_POSITION
+            }
         }
 
         override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
             val currentFirstVisiblePosition =
                 this@RvTabLayoutMediator.layoutManager.findFirstVisibleItemPosition()
-            if (targetPosition != NO_TARGET_POSITION && targetPosition != currentFirstVisiblePosition && currentScrollState != RecyclerView.SCROLL_STATE_IDLE) return else targetPosition =
-                NO_TARGET_POSITION
+            if (targetPosition != NO_TARGET_POSITION &&
+                targetPosition != currentFirstVisiblePosition &&
+                currentScrollState != RecyclerView.SCROLL_STATE_IDLE
+            ) return else targetPosition = NO_TARGET_POSITION
             val id = recyclerView.adapter!!.getItemId(currentFirstVisiblePosition)
             val index = findTabIndexByItemId(id)
             val tab = tabLayout.getTabAt(index)
