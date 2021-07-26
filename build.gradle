@@ -1,12 +1,30 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 buildscript {
+    ext.kotlin_version = "1.4.21"
+    ext.configs = [
+            versionName: "0.1.0",
+            versionCode: 1,
+            compileSdkVersion: 30,
+            minSdkVersion: 24,
+            targetSdkVersion: 30,
+            groupId: "com.github.sasakitomohiro",
+            artifactId: "rvtablayoutmediator",
+            description: "RvTabLayoutMediator",
+            siteUrl: "https://github.com/sasakitomohiro/RvTabLayoutMediator",
+            gitUrl: "https://github.com/sasakitomohiro/RvTabLayoutMediator.git",
+            developerId: "sasakitomohiro",
+            developerName: "TomohiroSasaki",
+            developerEmail: "t0m0.piii.12.07sk@gmail.com",
+            licenseName: "The Apache Software License, Version 2.0",
+            licenseUrl: "http://www.apache.org/licenses/LICENSE-2.0.txt"
+    ]
     repositories {
         google()
         mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:7.0.0-rc01'
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.5.10"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
