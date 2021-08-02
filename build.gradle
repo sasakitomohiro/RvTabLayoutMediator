@@ -2,7 +2,7 @@
 buildscript {
     ext.kotlin_version = "1.4.32"
     ext.configs = [
-            versionName: "0.1.0",
+            versionName: "0.1.1",
             versionCode: 1,
             compileSdkVersion: 30,
             minSdkVersion: 24,
