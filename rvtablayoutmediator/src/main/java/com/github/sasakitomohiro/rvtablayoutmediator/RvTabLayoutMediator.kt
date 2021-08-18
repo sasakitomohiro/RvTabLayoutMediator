@@ -10,6 +10,7 @@ class RvTabLayoutMediator(
     private val tabLayout: TabLayout,
     private val recyclerView: RecyclerView,
     private val tabDataProvider: TabDataProvider,
+    private val smoothScroller: RecyclerView.SmoothScroller = TargetSmoothScroller(recyclerView.context),
     private val tabConfigurationStrategy: RvTabConfigurationStrategy
 ) {
     var attached = false
@@ -18,8 +19,6 @@ class RvTabLayoutMediator(
     private var targetPosition = NO_TARGET_POSITION
     private var isManualScroll = false
 
-    private val context = recyclerView.context
-    private val smoothScroller = TargetSmoothScroller(context)
     private val layoutManager
         get() = recyclerView.layoutManager as LinearLayoutManager
 
