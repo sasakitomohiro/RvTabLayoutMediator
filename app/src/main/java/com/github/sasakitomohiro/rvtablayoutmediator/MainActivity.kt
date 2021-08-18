@@ -40,10 +40,10 @@ class MainActivity : AppCompatActivity() {
         sampleAdapter.update(items)
 
         RvTabLayoutMediator(
-            binding.tab,
-            binding.recycler,
-            sampleAdapter,
-            object : RvTabConfigurationStrategy {
+            tabLayout = binding.tab,
+            recyclerView = binding.recycler,
+            tabDataProvider = sampleAdapter,
+            tabConfigurationStrategy = object : RvTabConfigurationStrategy {
                 override fun onConfigureTab(tab: TabLayout.Tab, position: Int) {
                     tab.text = items[position].toString()
                 }
